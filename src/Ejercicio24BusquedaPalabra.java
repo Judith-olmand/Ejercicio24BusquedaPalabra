@@ -1,13 +1,42 @@
-//TIP To <b>Run</b> code, press <shortcut actionId="Run"/> or
-// click the <icon src="AllIcons.Actions.Execute"/> icon in the gutter.
-void main() {
-  //TIP Press <shortcut actionId="ShowIntentionActions"/> with your caret at the highlighted text
-  // to see how IntelliJ IDEA suggests fixing it.
-  IO.println(String.format("Hello and welcome!"));
+import java.io.BufferedReader;
+import java.io.FileReader;
+import java.io.IOException;
+import java.util.Scanner;
 
-  for (int i = 1; i <= 5; i++) {
-    //TIP Press <shortcut actionId="Debug"/> to start debugging your code. We have set one <icon src="AllIcons.Debugger.Db_set_breakpoint"/> breakpoint
-    // for you, but you can always add more by pressing <shortcut actionId="ToggleLineBreakpoint"/>.
-    IO.println("i = " + i);
-  }
+public class Ejercicio24BusquedaPalabra {
+    public static void main(String[] args) {
+        Scanner sc = new Scanner(System.in);
+        System.out.println("Indique una palabra para buscar:");
+        String palabra = sc.nextLine();
+        System.out.println("Indique el nombre del archivo en el que buscar:");
+        String archivo = sc.nextLine();
+        int contador = 0;
+
+        System.out.println();
+        System.out.println("MUESTRO EL CONTENIDO DEL ARCHIVO DE TEXTO");
+        try (BufferedReader reader = new BufferedReader(new FileReader("../"+archivo))) {
+            String linea;
+            while ((linea = reader.readLine()) != null) {
+                System.out.println(linea);
+            }
+        } catch (IOException e) {
+            System.out.println("Ocurrió un error al leer el archivo: " +
+                    e.getMessage());
+        }
+
+        System.out.println();
+        try (BufferedReader reader = new BufferedReader(new FileReader("../"+archivo))) {
+            String linea;
+            while ((linea = reader.readLine()) != null) {
+                if (linea.contains(palabra)) {
+                    contador++;
+                }
+            }
+        } catch (IOException e) {
+            System.out.println("Ocurrió un error al leer el archivo: " +
+                    e.getMessage());
+        }
+
+        System.out.println("La palabra " + palabra + " aparece en " +  contador + " líneas.");
+    }
 }
